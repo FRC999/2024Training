@@ -33,9 +33,9 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
 
   public RobotContainer() {
+    drivestick = new Joystick(Constants.OperatorConstants.kDriverControllerPort);
     // Configure the trigger bindings
     configureBindings();
-    Joystick printJoystick = new Joystick(Constants.OperatorConstants.kDriverControllerPort);
   }
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
