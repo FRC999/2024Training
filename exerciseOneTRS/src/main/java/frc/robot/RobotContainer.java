@@ -35,8 +35,8 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    configureBindings();
     driveStick = new Joystick(Constants.OperatorConstants.K_DRIVER_CONTROLLER_PORT);
+    configureBindings();
   }
 
   /**
@@ -63,7 +63,7 @@ public class RobotContainer {
 
     new JoystickButton(driveStick, Constants.OperatorConstants.TRIGGER)
         .onTrue(new PrintCommand("bang!!"))
-        .onFalse(new PrintCommand("no more :()"));
+        .onFalse(new PrintCommand("no more :("));
   }
 
   /**
