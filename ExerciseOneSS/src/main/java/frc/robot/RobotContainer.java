@@ -28,16 +28,15 @@ public class RobotContainer {
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
-  public Joystick driverStick;
+  public static Joystick drivestick;
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
+
   public RobotContainer() {
-    driverStick = new Joystick(Constants.DRIVER_STICK);
+    drivestick = new Joystick(Constants.OperatorConstants.kDriverControllerPort);
     // Configure the trigger bindings
     configureBindings();
   }
-
-
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
    * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
@@ -49,22 +48,18 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
-
+    
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
-
-    new JoystickButton(driverStick, Constants.DRIVER_STICK_BUTTON)
-      .onTrue(new PrintCommand("happy")) 
-      .onFalse(new PrintCommand("asdfasdf")); 
+    new JoystickButton(drivestick, Constants.OperatorConstants.kDriverStickButtonEleven)
+        .onTrue(new PrintCommand("Hello World"))
+        .onFalse(new PrintCommand("raine ma"));
   }
 
-      
-  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
+   *
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
