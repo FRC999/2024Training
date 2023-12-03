@@ -11,6 +11,7 @@ public class StopMotor extends CommandBase {
   /** Creates a new StopMotor. */
   public StopMotor() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(RobotContainer.motorSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -30,6 +31,6 @@ public class StopMotor extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

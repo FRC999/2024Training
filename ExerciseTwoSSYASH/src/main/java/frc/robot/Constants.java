@@ -17,8 +17,10 @@ public final class Constants {
     public static final int DRIVER_STICK = 0;
     public static final int BUTTON_ELEVEN = 11;
     public static final int MOTOR_CONTROLLER_PORT = 4;
+    public static final int BUTTON_TEN = 10;
 
     public static final double MOTPOWER_START = 0.2;
     public static final double MOTPOWER_END = 0.0;
+    public static final double MOTPOWER_REVERSE = -0.2;
   }
 }
