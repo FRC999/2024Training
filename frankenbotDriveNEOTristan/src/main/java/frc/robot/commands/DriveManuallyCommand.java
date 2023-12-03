@@ -4,30 +4,31 @@
 
 package frc.robot.commands;
 
-import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.MotorSubsystem;
+import frc.robot.subsystems.DriveSubsystem;
 
-public class RotateMotor extends CommandBase {
-
-
-  /** Creates a new RotateMotor. */
-  public RotateMotor() {
+public class DriveManuallyCommand extends CommandBase {
+  /** Creates a new DriveManuallyCommand. */
+  public DriveManuallyCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.motorSubsystem);
+    addRequirements(RobotContainer.driveSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.motorSubsystem.startMotor();
+    RobotContainer.driveSubsystem.driveTrainBrakeMode();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    double move = RobotContainer.driveStick.getX();
+    double turn = RobotContainer.driveStick.getY()*(-1);
+
+    RobotContainer.driveSubsystem.manualDrive(move, turn);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -36,6 +37,6 @@ public class RotateMotor extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }
