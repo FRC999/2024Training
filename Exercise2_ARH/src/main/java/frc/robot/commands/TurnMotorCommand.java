@@ -6,18 +6,18 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.DriveSubsystem;
-public class DriveCommand extends CommandBase {
-  public DriveSubsystem driveSubsystem = new DriveSubsystem();
-  /** Creates a new Drive. */
-  public DriveCommand() {
+
+public class TurnMotorCommand extends CommandBase {
+  /** Creates a new TurnMotorCommand. */
+  public TurnMotorCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(driveSubsystem);
+    addRequirements(RobotContainer.driveSubsystem);
   }
 
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.driveSubsystem.runMotor();
+    RobotContainer.driveSubsystem.startMotor();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

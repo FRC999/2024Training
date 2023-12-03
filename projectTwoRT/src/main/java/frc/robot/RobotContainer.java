@@ -6,17 +6,19 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
+import frc.robot.commands.DriveYAxisManual;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.StopCommand;
-import frc.robot.commands.DriveCommand;
+//import frc.robot.commands.PressButtonMoveBackMotor;
+//import frc.robot.commands.PressButtonMoveMotor;
+//import frc.robot.commands.PressButtonStopMotor;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+//import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -25,20 +27,27 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveCommand driveCommand = new DriveCommand();
-  public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+
+  public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.JOYSTICK);
 
   public final Joystick joystick  = new Joystick(Constants.OperatorConstants.JOYSTICK);
-  private final Trigger motorButton = new JoystickButton(joystick, Constants.OperatorConstants.BUTTON);
+
+
+  /**
+  public final JoystickButton trigger = new JoystickButton(joystick, Constants.OperatorConstants.TRIGGER);
+  public final JoystickButton sideButton = new JoystickButton(joystick, Constants.OperatorConstants.SIDEBUTTON);
+  */
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    driveSubsystem.setDefaultCommand(new DriveYAxisManual());
   }
 
   /**
@@ -52,17 +61,19 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-  // new Trigger(m_exampleSubsystem::exampleCondition)
-   // .onTrue(new ExampleCommand(m_exampleSubsystem));
-  
-  new JoystickButton(joystick, Constants.OperatorConstants.BUTTON)
-    .onTrue(new DriveCommand());
+    new Trigger(m_exampleSubsystem::exampleCondition)
+        .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-  new JoystickButton(joystick, Constants.OperatorConstants.BUTTON)
-    .onFalse(new StopCommand());
-
-    
+    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
+    // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+
+    /**this is the code for 2.0 and 2.1; was disabled for 2.2
+    trigger.onTrue(new PressButtonMoveMotor());
+    trigger.onFalse(new PressButtonStopMotor());
+
+    sideButton.onTrue(new PressButtonMoveBackMotor());
+    sideButton.onFalse(new PressButtonStopMotor());*/
   }
 
   /**
