@@ -25,6 +25,10 @@ public class MotorSubsystem extends SubsystemBase {
   public void startMotor() {
     talonMotor.set(ControlMode.PercentOutput, Constants.OperatorConstants.MOTPOWER_START);
   }
+  
+  public void reverseMotor() {
+    talonMotor.set(ControlMode.PercentOutput, Constants.OperatorConstants.MOTPOWER_REVERSE);
+  }
 
   public void stopMotor() {
     talonMotor.set(ControlMode.PercentOutput, Constants.OperatorConstants.MOTPOWER_END);
