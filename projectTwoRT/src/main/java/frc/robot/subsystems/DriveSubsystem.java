@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -19,7 +20,15 @@ public class DriveSubsystem extends SubsystemBase {
   public DriveSubsystem() {}
 
   public void setSpeed(double motorSpeed) {
-    motor.set(motorSpeed);
+    encMotor.set(motorSpeed);
+  }
+
+  public int getEncoder() {
+    return (int) encMotor.getSelectedSensorPosition();
+  }
+
+  public void configureEncoders() {
+    encMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 30);
   }
 
  
