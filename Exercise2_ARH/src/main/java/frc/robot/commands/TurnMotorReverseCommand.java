@@ -7,21 +7,19 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class StopMotorCommand extends CommandBase {
-  /** Creates a new StopMotorCommand. */
-  public StopMotorCommand() {
-    addRequirements(RobotContainer.driveSubsystem); // sets drive subsystem as the requirements
-
+public class TurnMotorReverseCommand extends CommandBase {
+  /** Creates a new TurnMotorReverseCommand. */
+  public TurnMotorReverseCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(RobotContainer.driveSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
-    RobotContainer.driveSubsystem.stopMotor(); // runs the stopmotor method every time it is scheduled
+    RobotContainer.driveSubsystem.startMotorBackwards();
   }
-  
+
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {}

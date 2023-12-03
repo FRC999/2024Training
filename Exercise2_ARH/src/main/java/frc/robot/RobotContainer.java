@@ -9,6 +9,7 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.StopMotorCommand;
 import frc.robot.commands.TurnMotorCommand;
+import frc.robot.commands.TurnMotorReverseCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
@@ -27,7 +28,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  public static DriveSubsystem driveSubsystem = new DriveSubsystem();
+  public static DriveSubsystem driveSubsystem = new DriveSubsystem(); // creates the new drive subsystem objects
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -37,7 +38,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    driveStick = new Joystick(Constants.OperatorConstants.joystickButton);
+    driveStick = new Joystick(Constants.OperatorConstants.kDriverControllerPort); // creates a joystick object using the joystick button constant
     configureBindings();
   }
 
@@ -55,13 +56,17 @@ public class RobotContainer {
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
       
-    new JoystickButton(driveStick, Constants.OperatorConstants.joystickButton)
-      .onTrue(new TurnMotorCommand());
+    new JoystickButton(driveStick, Constants.OperatorConstants.BUTTON_TO_ROTATE_MOTOR)
+      .onTrue(new TurnMotorCommand()); // turns the motor when the assigned button is clicked
     
-    new JoystickButton(driveStick, Constants.OperatorConstants.joystickButton)
-      .onFalse(new StopMotorCommand());
+    new JoystickButton(driveStick, Constants.OperatorConstants.BUTTON_TO_ROTATE_MOTOR)
+      .onFalse(new StopMotorCommand()); // stops the motor when the button is clicked again
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
+    new JoystickButton(driveStick, Constants.OperatorConstants.REVERSE_MOTOR_BUTTON)
+      .onTrue(new TurnMotorReverseCommand());    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
+
+    new JoystickButton(driveStick, Constants.OperatorConstants.REVERSE_MOTOR_BUTTON)
+      .onFalse(new StopMotorCommand());
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }

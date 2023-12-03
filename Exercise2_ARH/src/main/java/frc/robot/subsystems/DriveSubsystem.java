@@ -15,21 +15,26 @@ import frc.robot.Constants.OperatorConstants;;
 public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystem. */
 
-  private final TalonFX motor;
+  private final TalonFX motor; // instantiates the talonfx motor class
+  
   public DriveSubsystem() {
-    motor = new TalonFX(Constants.OperatorConstants.motorID);
+    motor = new TalonFX(Constants.OperatorConstants.motorID); // sets the talonfx motor id
   }
 
   @Override
-  public void periodic() {
+  public void periodic() { // is run every 20 ms
     // This method will be called once per scheduler run
   } 
 
-  public void startMotor() {
-    motor.set(ControlMode.PercentOutput, Constants.OperatorConstants.motorSpeed);
+  public void startMotorForward() {
+    motor.set(ControlMode.PercentOutput, Constants.OperatorConstants.motorSpeed); // sets the percentage output of the motor by locating the motor speed
   }
 
   public void stopMotor() {
-    motor.set(ControlMode.PercentOutput, 0.0);
+    motor.set(ControlMode.PercentOutput, 0.0); // sets the percent output to 0 in order to stop the motor
+  }
+
+  public void startMotorBackwards() {
+    motor.set(ControlMode.PercentOutput, -Constants.OperatorConstants.motorSpeed); // sets the percentage output of the motor by locating the motor speed
   }
 }
