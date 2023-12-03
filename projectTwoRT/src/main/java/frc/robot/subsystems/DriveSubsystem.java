@@ -13,6 +13,7 @@ import frc.robot.Constants;
 public class DriveSubsystem extends SubsystemBase {
 
   WPI_TalonFX motor = new WPI_TalonFX(Constants.OperatorConstants.MOTOR);
+  WPI_TalonFX encMotor = new WPI_TalonFX(Constants.OperatorConstants.ENCMOTOR);
 
   /** Creates a new Drive. */
   public DriveSubsystem() {}
