@@ -34,7 +34,7 @@ public class DriveSubsystem extends SubsystemBase {
   public void manualDrive(double move, double turn) {
 
     drive.arcadeDrive(move, turn);
-    
+
   }
 
   public void configureMotors() {

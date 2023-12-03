@@ -26,7 +26,7 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
 
-  public static Joystick driveStick;
+  public static Joystick driveStick = new Joystick(0);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
