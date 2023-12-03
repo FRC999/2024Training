@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
+import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.ReverseMotor;
 import frc.robot.commands.RotateMotor;
@@ -33,13 +34,18 @@ public class RobotContainer {
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.DRIVER_STICK);
 
-  public final Joystick driveStick;
+  public static Joystick driveStick;
 
+  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     driveStick = new Joystick(Constants.OperatorConstants.DRIVER_STICK);
     // Configure the trigger bindings
     configureBindings();
+        // Configure default commands
+    // Set the default drive command to split-stick arcade drive
+    //driveSubsystem.setDefaultCommand(
+      motorSubsystem.setDefaultCommand(new DriveManuallyCommand());
   }
 
   /**
@@ -63,6 +69,8 @@ public class RobotContainer {
     new JoystickButton(driveStick, Constants.OperatorConstants.BUTTON_TEN)
         .onTrue(new ReverseMotor())
         .onFalse(new StopMotor());
+
+    
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
