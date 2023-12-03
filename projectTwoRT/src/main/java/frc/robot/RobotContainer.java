@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.PressButtonMoveBackMotor;
 import frc.robot.commands.PressButtonMoveMotor;
 import frc.robot.commands.PressButtonStopMotor;
 import frc.robot.subsystems.DriveSubsystem;
@@ -35,7 +36,7 @@ public class RobotContainer {
 
   public final Joystick joystick  = new Joystick(Constants.OperatorConstants.JOYSTICK);
   public final JoystickButton trigger = new JoystickButton(joystick, Constants.OperatorConstants.TRIGGER);
- 
+  public final JoystickButton sideButton = new JoystickButton(joystick, Constants.OperatorConstants.SIDEBUTTON);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -63,6 +64,9 @@ public class RobotContainer {
 
     trigger.onTrue(new PressButtonMoveMotor());
     trigger.onFalse(new PressButtonStopMotor());
+
+    sideButton.onTrue(new PressButtonMoveBackMotor());
+    sideButton.onFalse(new PressButtonStopMotor());
   }
 
   /**

@@ -16,8 +16,10 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int JOYSTICK = 0;
     public static final int TRIGGER = 1;
+    public static final int SIDEBUTTON = 2;
     public static final int MOTOR = 4;
     public static final double MOVESPEED = 0.2;
+    public static final double BACKWARDSPEED = -0.2;
     public static final double STOPSPEED = 0.0;
   }
 }

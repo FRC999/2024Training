@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
-public class PressButtonStopMotor extends CommandBase {
-  /** Creates a new PressButtonStopMotor. */
-  public PressButtonStopMotor() {
+public class PressButtonMoveBackMotor extends CommandBase {
+  /** Creates a new PressButtonMoveBackMotor. */
+  public PressButtonMoveBackMotor() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.driveSubsystem);
   }
@@ -18,7 +18,7 @@ public class PressButtonStopMotor extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.driveSubsystem.setSpeed(Constants.OperatorConstants.STOPSPEED);
+    RobotContainer.driveSubsystem.setSpeed(Constants.OperatorConstants.BACKWARDSPEED);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -32,6 +32,6 @@ public class PressButtonStopMotor extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }
