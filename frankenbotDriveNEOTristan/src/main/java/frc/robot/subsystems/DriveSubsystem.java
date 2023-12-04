@@ -13,20 +13,25 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystem. */
+  //_initializes and defines motors
   private CANSparkMax rightMotor = new CANSparkMax(21, MotorType.kBrushless);
   private CANSparkMax leftMotor = new CANSparkMax(20, MotorType.kBrushless);
 
+  //_initializes differential drive
   private DifferentialDrive drive;
   
   public DriveSubsystem() {
 
+    //_init driveTrainBrakeMode
     driveTrainBrakeMode();
 
+    //_def DifferentialDrive between left and right motor
     drive = new DifferentialDrive(leftMotor, rightMotor);
     
   }
 
   public void driveTrainBrakeMode() {
+    //_this will make the robot brake when no command is given. !!very important!!
     rightMotor.setIdleMode(IdleMode.kBrake);
     leftMotor.setIdleMode(IdleMode.kBrake);
   }
@@ -39,6 +44,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void configureMotors() {
     rightMotor.setInverted(false);
+    //_left motor is invertued due to its position on the frankenBot
     leftMotor.setInverted(true);
   }
 
