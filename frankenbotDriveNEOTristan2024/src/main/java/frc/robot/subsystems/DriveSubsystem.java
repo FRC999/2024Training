@@ -10,13 +10,12 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystem. */
   //_initializes and defines motors
-  private CANSparkMax rightMotor = new CANSparkMax(Constants.OperatorConstants.RMOTOR, MotorType.kBrushless);
-  private CANSparkMax leftMotor = new CANSparkMax(Constants.OperatorConstants.LMOTOR, MotorType.kBrushless);
+  private CANSparkMax rightMotor = new CANSparkMax(21, MotorType.kBrushless);
+  private CANSparkMax leftMotor = new CANSparkMax(20, MotorType.kBrushless);
 
   //_initializes differential drive
   private DifferentialDrive drive;
