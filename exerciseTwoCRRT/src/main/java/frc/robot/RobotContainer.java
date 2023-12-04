@@ -9,8 +9,10 @@ import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.StopCommand;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.DriveManualCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.SmartDashboardSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
@@ -28,18 +30,22 @@ public class RobotContainer {
   private final DriveCommand driveCommand = new DriveCommand();
   public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  public final static SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.JOYSTICK);
 
-  public final Joystick joystick  = new Joystick(Constants.OperatorConstants.JOYSTICK);
+  public static Joystick joystick  = new Joystick(Constants.OperatorConstants.JOYSTICK);
+
   private final Trigger motorButton = new JoystickButton(joystick, Constants.OperatorConstants.BUTTON);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    driveSubsystem.setDefaultCommand(new DriveManualCommand());
   }
+  
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
