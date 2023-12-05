@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.DriveManuallyCommand;
 
 public class MotorSubsystem extends SubsystemBase {
   private WPI_TalonSRX talonMotor;
@@ -25,9 +26,17 @@ public class MotorSubsystem extends SubsystemBase {
   public void startMotor() {
     talonMotor.set(ControlMode.PercentOutput, Constants.OperatorConstants.MOTPOWER_START);
   }
+  
+  public void reverseMotor() {
+    talonMotor.set(ControlMode.PercentOutput, Constants.OperatorConstants.MOTPOWER_REVERSE);
+  }
 
   public void stopMotor() {
     talonMotor.set(ControlMode.PercentOutput, Constants.OperatorConstants.MOTPOWER_END);
+  }
+
+  public void dynamicSpeedChange(double move) {
+    talonMotor.set(ControlMode.PercentOutput, move);
   }
 
   @Override
