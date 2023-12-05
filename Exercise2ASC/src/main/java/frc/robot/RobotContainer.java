@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ReverseMotor;
 import frc.robot.commands.StopTurnMotor;
 import frc.robot.commands.TurnMotorCommand;
 import frc.robot.subsystems.DriveSubsystem;
@@ -29,7 +30,7 @@ public class RobotContainer {
   public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final Joystick joystick =
+  public final static Joystick joystick =
       new Joystick(OperatorConstants.kDriverControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -51,10 +52,12 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
-    new JoystickButton(joystick, 11)
+    new JoystickButton(joystick, Constants.OperatorConstants.turnForwardButton)
       .onTrue(new TurnMotorCommand())
       .onFalse(new StopTurnMotor());
-    
+    new JoystickButton(joystick, Constants.OperatorConstants.turnReverseButton)
+      .onTrue(new ReverseMotor())
+      .onFalse(new StopTurnMotor());
   }
 
   /**
