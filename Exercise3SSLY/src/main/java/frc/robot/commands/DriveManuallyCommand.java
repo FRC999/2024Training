@@ -4,35 +4,34 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-//import frc.robot.Constants;
 import frc.robot.RobotContainer;
+//import frc.robot.subsystems.DriveSubsystem;
+//commented out because it isn't used. technically should be there but wtvr
 
-/**
- * This command never ends; 
- */
 public class DriveManuallyCommand extends CommandBase {
   /** Creates a new DriveManuallyCommand. */
   public DriveManuallyCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.motorSubsystem);
+
+    addRequirements(RobotContainer.driveSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-  
+    //on initial schedule, begins brakemode (makes it stop when joystick is let go of)
+    RobotContainer.driveSubsystem.driveTrainBrakeMode();
   }
-public static double move;
+
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      move = RobotContainer.driveStick.getY();
-      RobotContainer.motorSubsystem.dynamicSpeedChange(move);
-      RobotContainer.motorSubsystem.setSpeed(move);
-      
-    
+    double move = RobotContainer.driveStick.getX(); // the X and Y are reversed
+    double turn = RobotContainer.driveStick.getY()*(-1);
+
+    //sends the joystick pos to arcadeDrive in driveSubsystem
+    RobotContainer.driveSubsystem.manualDrive(move, turn);
   }
 
   // Called once the command ends or is interrupted.

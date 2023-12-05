@@ -2,23 +2,25 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+//_comments denoted with underscores 
+//_started december 4, 2023
+//_finished ---- -, ----
+
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
+import frc.robot.commands.ButtonDownBarForward;
+import frc.robot.commands.ButtonUpBarBackwards;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.StopCommand;
-import frc.robot.commands.DriveCommand;
-import frc.robot.commands.DriveManualCommand;
-import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.SmartDashboardSubsystem;
+import frc.robot.subsystems.PneumaticsSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -27,25 +29,22 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveCommand driveCommand = new DriveCommand();
-  public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  public final static SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
+  public final static PneumaticsSubsystem pneumaticsSubsystem = new PneumaticsSubsystem();
+
+  public static Joystick stick = new Joystick(Constants.OperatorConstants.JOYSTICK);
+
+  public final JoystickButton trigger = new JoystickButton(stick, Constants.OperatorConstants.TRIGGER);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.JOYSTICK);
+      new CommandXboxController(OperatorConstants.KDRIVERCONTROLLERPORT);
 
-  public static Joystick joystick  = new Joystick(Constants.OperatorConstants.JOYSTICK);
-  public static Joystick turnStick = new Joystick(1);
-  private final Trigger motorButton = new JoystickButton(joystick, Constants.OperatorConstants.BUTTON);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
-    driveSubsystem.setDefaultCommand(new DriveManualCommand());
   }
-  
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -58,17 +57,16 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-  // new Trigger(m_exampleSubsystem::exampleCondition)
-   // .onTrue(new ExampleCommand(m_exampleSubsystem));
-  
-  new JoystickButton(joystick, Constants.OperatorConstants.BUTTON)
-    .onTrue(new DriveCommand());
+    new Trigger(m_exampleSubsystem::exampleCondition)
+        .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-  new JoystickButton(joystick, Constants.OperatorConstants.BUTTON)
-    .onFalse(new StopCommand());
-
-    
+    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
+    // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+
+    trigger.onTrue(new ButtonDownBarForward())
+    .onFalse(new ButtonUpBarBackwards());
+
   }
 
   /**

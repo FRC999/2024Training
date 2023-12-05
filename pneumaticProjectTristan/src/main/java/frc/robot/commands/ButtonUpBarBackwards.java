@@ -4,35 +4,23 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-//import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
-/**
- * This command never ends; 
- */
-public class DriveManuallyCommand extends CommandBase {
-  /** Creates a new DriveManuallyCommand. */
-  public DriveManuallyCommand() {
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.motorSubsystem);
+public class ButtonUpBarBackwards extends CommandBase {
+  /** Creates a new ButtonUpBarBackwards. */
+  public ButtonUpBarBackwards() {
+    addRequirements(RobotContainer.pneumaticsSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  
-  }
-public static double move;
+  public void initialize() {}
+
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      move = RobotContainer.driveStick.getY();
-      RobotContainer.motorSubsystem.dynamicSpeedChange(move);
-      RobotContainer.motorSubsystem.setSpeed(move);
-      
-    
+    RobotContainer.pneumaticsSubsystem.barBackwards();
   }
 
   // Called once the command ends or is interrupted.

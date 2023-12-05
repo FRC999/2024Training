@@ -4,36 +4,32 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.RobotBase;
+import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-//import frc.robot.Constants;
-import frc.robot.RobotContainer;
 
-/**
- * This command never ends; 
- */
-public class DriveManuallyCommand extends CommandBase {
-  /** Creates a new DriveManuallyCommand. */
-  public DriveManuallyCommand() {
+/** An example command that uses an example subsystem. */
+public class ExampleCommand extends CommandBase {
+  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  private final ExampleSubsystem m_subsystem;
+
+  /**
+   * Creates a new ExampleCommand.
+   *
+   * @param subsystem The subsystem used by this command.
+   */
+  public ExampleCommand(ExampleSubsystem subsystem) {
+    m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.motorSubsystem);
+    addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  
-  }
-public static double move;
+  public void initialize() {}
+
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-      move = RobotContainer.driveStick.getY();
-      RobotContainer.motorSubsystem.dynamicSpeedChange(move);
-      RobotContainer.motorSubsystem.setSpeed(move);
-      
-    
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override

@@ -4,35 +4,28 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-//import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
-/**
- * This command never ends; 
- */
-public class DriveManuallyCommand extends CommandBase {
-  /** Creates a new DriveManuallyCommand. */
-  public DriveManuallyCommand() {
+public class DriveManualCommand extends CommandBase {
+  /** Creates a new DriveYAxisManual. */
+  public DriveManualCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.motorSubsystem);
+    addRequirements(RobotContainer.driveSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  
-  }
-public static double move;
+  public void initialize() {}
+
+  double move;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-      move = RobotContainer.driveStick.getY();
-      RobotContainer.motorSubsystem.dynamicSpeedChange(move);
-      RobotContainer.motorSubsystem.setSpeed(move);
-      
-    
+  public void execute() {   
+
+    move = RobotContainer.joystick.getY();
+    RobotContainer.driveSubsystem.setSpeed(move);
+    RobotContainer.driveSubsystem.joystickDrive(move);
   }
 
   // Called once the command ends or is interrupted.
@@ -42,6 +35,6 @@ public static double move;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
