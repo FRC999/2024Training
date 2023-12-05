@@ -17,12 +17,14 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 public final class Constants {
   public static class OperatorConstants {
     public static final int KDRIVERCONTROLLERPORT = 0;
-    
+    public static final int JOYSTICK = 0;
+    public static final int TRIGGER = 1;
   }
   public static class PneumaticsConstants {
-
     public static final int compressorCANID = 0;
     public static final PneumaticsModuleType pneumaticsModuleType = PneumaticsModuleType.CTREPCM;
+    public static final int FORWARDCHANNEL = 0;
+    public static final int REVERSECHANNEL = 1;
 
   }
 }
