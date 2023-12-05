@@ -7,7 +7,10 @@ package frc.robot.subsystems;
 import java.util.ResourceBundle.Control;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
+import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
@@ -18,26 +21,43 @@ import frc.robot.commands.DriveManuallyCommand;
 
 public class MotorSubsystem extends SubsystemBase {
   private WPI_TalonSRX talonMotor;
+  private WPI_TalonSRX encMotor;
   /** Creates a new MotorSubsystem. */
   public MotorSubsystem() {
     talonMotor = new WPI_TalonSRX(Constants.OperatorConstants.MOTOR_CONTROLLER_PORT);
+
+    encMotor = new WPI_TalonSRX(Constants.OperatorConstants.ENCODER_MOTOR);
   }
 
   public void startMotor() {
-    talonMotor.set(ControlMode.PercentOutput, Constants.OperatorConstants.MOTPOWER_START);
+    encMotor.set(ControlMode.PercentOutput, Constants.OperatorConstants.MOTPOWER_START);
   }
   
   public void reverseMotor() {
-    talonMotor.set(ControlMode.PercentOutput, Constants.OperatorConstants.MOTPOWER_REVERSE);
+    encMotor.set(ControlMode.PercentOutput, Constants.OperatorConstants.MOTPOWER_REVERSE);
   }
 
   public void stopMotor() {
-    talonMotor.set(ControlMode.PercentOutput, Constants.OperatorConstants.MOTPOWER_END);
+    encMotor.set(ControlMode.PercentOutput, Constants.OperatorConstants.MOTPOWER_END);
   }
 
   public void dynamicSpeedChange(double move) {
-    talonMotor.set(ControlMode.PercentOutput, move);
+    encMotor.set(ControlMode.PercentOutput, move);
   }
+
+  public void setSpeed(double motorSpeed) {
+    encMotor.set(motorSpeed);
+  }
+
+  public int getEncoder() {
+    int a = (int) encMotor.getSelectedSensorPosition();
+    return a;
+  }
+
+  public void configureEncoders() {
+    encMotor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Relative, 0, 30);
+  }
+
 
   @Override
   public void periodic() {
