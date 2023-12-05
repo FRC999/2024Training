@@ -5,7 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.PneumaticHub;
+import edu.wpi.first.wpilibj.PneumaticsControlModule;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.PneumaticsConstants;
 
@@ -13,7 +13,7 @@ public class PneumaticsSubsystem extends SubsystemBase {
   /** Creates a new PneumaticsSubsystem. */
   private Compressor compressor;
 
-  private PneumaticHub pneumaticsHub = new PneumaticHub(PneumaticsConstants.compressorCANID);
+  private PneumaticsControlModule pneumaticsControlModule = new PneumaticsControlModule(PneumaticsConstants.compressorCANID);
 
   public PneumaticsSubsystem() {
     compressor = new Compressor(PneumaticsConstants.compressorCANID, PneumaticsConstants.pneumaticsModuleType);
@@ -31,8 +31,8 @@ public class PneumaticsSubsystem extends SubsystemBase {
     compressor.disable();
   }
 
-  public PneumaticHub getPneumaticsHub() {
-    return pneumaticsHub;
+  public PneumaticsControlModule getPneumaticsHub() {
+    return pneumaticsControlModule;
   }
   
   @Override
