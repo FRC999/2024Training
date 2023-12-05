@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -18,13 +16,7 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int KDRIVERCONTROLLERPORT = 0;
     public static final int JOYSTICK = 0;
-    public static final int TRIGGER = 1;
-  }
-  public static class PneumaticsConstants {
-    public static final int compressorCANID = 0;
-    public static final PneumaticsModuleType pneumaticsModuleType = PneumaticsModuleType.CTREPCM;
-    public static final int FORWARDCHANNEL = 0;
-    public static final int REVERSECHANNEL = 1;
-
+    public static final int LMOTOR = 20;
+    public static final int RMOTOR = 21;
   }
 }

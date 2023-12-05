@@ -5,11 +5,15 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsControlModule;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.PneumaticsConstants;
 
 public class PneumaticsSubsystem extends SubsystemBase {
+  private static DoubleSolenoid barSolenoid;
   /** Creates a new PneumaticsSubsystem. */
   private Compressor compressor;
 
@@ -17,10 +21,11 @@ public class PneumaticsSubsystem extends SubsystemBase {
 
   public PneumaticsSubsystem() {
     compressor = new Compressor(PneumaticsConstants.compressorCANID, PneumaticsConstants.pneumaticsModuleType);
+    
+    barSolenoid = new DoubleSolenoid(PneumaticsConstants.pneumaticsModuleType, Constants.PneumaticsConstants.FORWARDCHANNEL, Constants.PneumaticsConstants.REVERSECHANNEL);
 
-
-    System.out.println("activating compressor :)");
     activateCompressor();
+    deactivateCompressor();
   }
 
   public void activateCompressor() {
@@ -29,6 +34,14 @@ public class PneumaticsSubsystem extends SubsystemBase {
 
   public void deactivateCompressor() {
     compressor.disable();
+  }
+
+  public void barForward() {
+    barSolenoid.set(Value.kForward);
+  }
+
+  public void barBackwards() {
+    barSolenoid.set(Value.kReverse);
   }
 
   public PneumaticsControlModule getPneumaticsHub() {
