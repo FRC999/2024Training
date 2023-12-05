@@ -11,13 +11,14 @@ public class TurnMotorCommand extends CommandBase {
   /** Creates a new TurnMotorCommand. */
   public TurnMotorCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.driveSubsystem);
+    addRequirements(RobotContainer.driveSubsystem); // adds drivesubsytem as the requirements
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.driveSubsystem.startMotor();
+    System.out.println("Motor command scheduled");
+    RobotContainer.driveSubsystem.startMotorForward(); // runs the start motor method from the drive subsystem every time it is scheduled
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -31,6 +32,6 @@ public class TurnMotorCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

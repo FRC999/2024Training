@@ -30,6 +30,8 @@ public static double move;
   public void execute() {
       move = RobotContainer.driveStick.getY();
       RobotContainer.motorSubsystem.dynamicSpeedChange(move);
+      RobotContainer.motorSubsystem.setSpeed(move);
+      
     
   }
 

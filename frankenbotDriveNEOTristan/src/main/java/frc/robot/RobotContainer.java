@@ -26,16 +26,19 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
 
-  public static Joystick driveStick = new Joystick(0);
+  //_define joystick
+  public static Joystick driveStick = new Joystick(Constants.OperatorConstants.JOYSTICK);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+      new CommandXboxController(OperatorConstants.KDRIVERCONTROLLERPORT);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+
+    //_triggers drive on initialize
     driveSubsystem.setDefaultCommand(new DriveManuallyCommand());
   }
 

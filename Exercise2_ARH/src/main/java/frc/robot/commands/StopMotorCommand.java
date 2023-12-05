@@ -10,7 +10,7 @@ import frc.robot.RobotContainer;
 public class StopMotorCommand extends CommandBase {
   /** Creates a new StopMotorCommand. */
   public StopMotorCommand() {
-    addRequirements(RobotContainer.driveSubsystem);
+    addRequirements(RobotContainer.driveSubsystem); // sets drive subsystem as the requirements
 
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -18,7 +18,8 @@ public class StopMotorCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.driveSubsystem.stopMotor();
+    
+    RobotContainer.driveSubsystem.stopMotor(); // runs the stopmotor method every time it is scheduled
   }
   
   // Called every time the scheduler runs while the command is scheduled.
@@ -32,6 +33,6 @@ public class StopMotorCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
