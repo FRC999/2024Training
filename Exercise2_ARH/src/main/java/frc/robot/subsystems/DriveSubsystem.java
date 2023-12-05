@@ -30,6 +30,10 @@ public class DriveSubsystem extends SubsystemBase {
     motor.set(ControlMode.PercentOutput, Constants.OperatorConstants.motorSpeed); // sets the percentage output of the motor by locating the motor speed
   }
 
+  public void manuallyDrive(double speed) {
+    motor.set(ControlMode.PercentOutput, speed); // sets the percent output to 0 in order to stop the motor
+
+  }
   public void stopMotor() {
     motor.set(ControlMode.PercentOutput, 0.0); // sets the percent output to 0 in order to stop the motor
   }
@@ -37,4 +41,6 @@ public class DriveSubsystem extends SubsystemBase {
   public void startMotorBackwards() {
     motor.set(ControlMode.PercentOutput, -Constants.OperatorConstants.motorSpeed); // sets the percentage output of the motor by locating the motor speed
   }
+
+  
 }

@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
+import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.StopMotorCommand;
 import frc.robot.commands.TurnMotorCommand;
@@ -34,12 +35,15 @@ public class RobotContainer {
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
-  Joystick driveStick;
+  public static Joystick driveStick;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     driveStick = new Joystick(Constants.OperatorConstants.kDriverControllerPort); // creates a joystick object using the joystick button constant
     configureBindings();
+    driveSubsystem.setDefaultCommand(
+      new DriveManuallyCommand()
+    );
   }
 
   /**
@@ -55,7 +59,8 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
-      
+
+    /*  
     new JoystickButton(driveStick, Constants.OperatorConstants.BUTTON_TO_ROTATE_MOTOR)
       .onTrue(new TurnMotorCommand()); // turns the motor when the assigned button is clicked
     
@@ -66,7 +71,7 @@ public class RobotContainer {
       .onTrue(new TurnMotorReverseCommand());    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
 
     new JoystickButton(driveStick, Constants.OperatorConstants.REVERSE_MOTOR_BUTTON)
-      .onFalse(new StopMotorCommand());
+      .onFalse(new StopMotorCommand()); */
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
