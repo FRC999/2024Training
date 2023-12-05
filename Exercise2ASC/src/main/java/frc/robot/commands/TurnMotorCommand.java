@@ -16,14 +16,15 @@ public class TurnMotorCommand extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
-
+  public void initialize() {
+    RobotContainer.driveSubsystem.moveMotor(Constants.OperatorConstants.MOTOR_SPEED);
+    System.out.println("Task reached");
+  }
+    
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    RobotContainer.driveSubsystem.motorTurn(Constants.OperatorConstants.MOTOR_SPEED);
-    
-  }
+  public void execute() {}
+
 
   // Called once the command ends or is interrupted.
   @Override
@@ -32,6 +33,6 @@ public class TurnMotorCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

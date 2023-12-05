@@ -14,25 +14,25 @@ import frc.robot.Constants;
 
 public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystem. */
-  //_initializes and defines motors
+  //initializes and defines motors
   private CANSparkMax rightMotor = new CANSparkMax(Constants.OperatorConstants.RMOTOR, MotorType.kBrushless);
   private CANSparkMax leftMotor = new CANSparkMax(Constants.OperatorConstants.LMOTOR, MotorType.kBrushless);
 
-  //_initializes differential drive
+  //initializes differential drive
   private DifferentialDrive drive;
   
   public DriveSubsystem() {
 
-    //_init driveTrainBrakeMode
+  
     driveTrainBrakeMode();
 
-    //_def DifferentialDrive between left and right motor
+  
     drive = new DifferentialDrive(leftMotor, rightMotor);
     
   }
 
   public void driveTrainBrakeMode() {
-    //this will make the robot brake when no command is given
+    //this will make the robot brake when no command is given, when it is standing there basically
     rightMotor.setIdleMode(IdleMode.kBrake);
     leftMotor.setIdleMode(IdleMode.kBrake);
   }

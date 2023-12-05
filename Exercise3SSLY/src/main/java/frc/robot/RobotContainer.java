@@ -26,7 +26,7 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
 
-  //_define joystick
+  //define joystick
   public static Joystick driveStick = new Joystick(Constants.OperatorConstants.JOYSTICK);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -37,8 +37,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
-
-    //_triggers drive on initialize
+    
     driveSubsystem.setDefaultCommand(new DriveManuallyCommand());
   }
 

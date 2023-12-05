@@ -8,16 +8,16 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
-public class StopTurnMotor extends CommandBase {
-  /** Creates a new StopTurnMotor. */
-  public StopTurnMotor() {
-    addRequirements(RobotContainer.driveSubsystem);  
+public class ReverseMotor extends CommandBase {
+  /** Creates a new ReverseMotor. */
+  public ReverseMotor() {
+    // Use addRequirements() here to declare subsystem dependencies.
   }
-  
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.driveSubsystem.moveMotor(Constants.OperatorConstants.STOPMOTOR_SPEED);
+    RobotContainer.driveSubsystem.moveMotor(-Constants.OperatorConstants.MOTOR_SPEED);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

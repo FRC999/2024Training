@@ -17,9 +17,14 @@ public class DriveSubsystem extends SubsystemBase {
     
   }
 
-  public void motorTurn(double speed){
+  public void moveMotor(double speed) {
     motor.set(speed);
   };
+
+  public void moveMotorJoystick() {
+    
+  }
+  
 
   @Override
   public void periodic() {
