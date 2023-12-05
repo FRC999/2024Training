@@ -21,6 +21,7 @@ public class PneumaticsSubsystem extends SubsystemBase {
 
   public PneumaticsSubsystem() {
     compressor = new Compressor(PneumaticsConstants.compressorCANID, PneumaticsConstants.pneumaticsModuleType);
+    
     barSolenoid = new DoubleSolenoid(PneumaticsConstants.pneumaticsModuleType, Constants.PneumaticsConstants.FORWARDCHANNEL, Constants.PneumaticsConstants.REVERSECHANNEL);
 
     activateCompressor();
