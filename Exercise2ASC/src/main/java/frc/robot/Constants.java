@@ -15,11 +15,9 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
-    
-    public static final int motorID = 4; // defines the id of the motor by using phoenix tuner
-    public static final int encoderMotorID = 9;
-    public final static int BUTTON_TO_ROTATE_MOTOR = 11; // defines the button id which tells the program to run
-    public static final double motorSpeed = 0.2; // the motor speed which we assigned to the motor
-    public static final int REVERSE_MOTOR_BUTTON = 10; // defines the button id which will tells the program to run the reverse motor code
+    //id, speed, joystick button
+    public static final int MOTOR_ID = 9;
+    public static final double MOTOR_SPEED = 0.2;
+    public static final int TURNMOTOR_JOYSTICKBUTTON = 11;
   }
 }

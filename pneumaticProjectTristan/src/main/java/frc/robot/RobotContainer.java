@@ -2,22 +2,19 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+//_comments denoted with underscores 
+//_started december 4, 2023
+//_finished ---- -, ----
+
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
-import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.StopMotorCommand;
-import frc.robot.commands.TurnMotorCommand;
-import frc.robot.commands.TurnMotorReverseCommand;
-import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.SmartDashboardSubsystem;
-import edu.wpi.first.wpilibj.Joystick;
+import frc.robot.subsystems.PneumaticsSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -29,23 +26,16 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  public final PneumaticsSubsystem pneumaticsSubsystem = new PneumaticsSubsystem();
 
-  public static DriveSubsystem driveSubsystem = new DriveSubsystem(); // creates the new drive subsystem objects
-
-  public static SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+      new CommandXboxController(OperatorConstants.KDRIVERCONTROLLERPORT);
 
-  public static Joystick driveStick;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    driveStick = new Joystick(Constants.OperatorConstants.kDriverControllerPort); // creates a joystick object using the joystick button constant
     configureBindings();
-    driveSubsystem.setDefaultCommand(
-      new DriveManuallyCommand()
-    );
   }
 
   /**
@@ -62,18 +52,7 @@ public class RobotContainer {
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-    /*  
-    new JoystickButton(driveStick, Constants.OperatorConstants.BUTTON_TO_ROTATE_MOTOR)
-      .onTrue(new TurnMotorCommand()); // turns the motor when the assigned button is clicked
-    
-    new JoystickButton(driveStick, Constants.OperatorConstants.BUTTON_TO_ROTATE_MOTOR)
-      .onFalse(new StopMotorCommand()); // stops the motor when the button is clicked again
-
-    new JoystickButton(driveStick, Constants.OperatorConstants.REVERSE_MOTOR_BUTTON)
-      .onTrue(new TurnMotorReverseCommand());    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-
-    new JoystickButton(driveStick, Constants.OperatorConstants.REVERSE_MOTOR_BUTTON)
-      .onFalse(new StopMotorCommand()); */
+    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
