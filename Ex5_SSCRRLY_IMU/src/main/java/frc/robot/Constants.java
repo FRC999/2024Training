@@ -15,8 +15,7 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
-    public static final int JOYSTICK = 0;
-    public static final int LMOTOR = 20;
-    public static final int RMOTOR = 21;
+
+    public static final int PIGEON_IMU_ID = 0;
   }
 }
