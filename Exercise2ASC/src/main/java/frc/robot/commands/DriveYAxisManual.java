@@ -4,29 +4,29 @@
 
 package frc.robot.commands;
 
-//import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
-//import frc.robot.subsystems.DriveSubsystem;
 
-public class MaxJoystick extends CommandBase {
-  /** Creates a new MaxJoystick. */
-  public MaxJoystick() {
-    // Use addRequirements() here to declare subsystem dependencies.
+public class DriveYAxisManual extends CommandBase {
+  /** Creates a new DriveYAxisManual. */
+  public DriveYAxisManual() {
     addRequirements(RobotContainer.driveSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.driveSubsystem.moveMotor(Constants.OperatorConstants.MAX_SPEED);
-    //double move = RobotContainer.joystick.getY();
+
+    double move;
+
+    move = RobotContainer.joystick.getY()*(-1);
+
+    RobotContainer.driveSubsystem.moveMotor(move);
+
   }
 
   // Called once the command ends or is interrupted.

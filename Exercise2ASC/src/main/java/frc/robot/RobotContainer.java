@@ -6,16 +6,17 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
+import frc.robot.commands.DriveYAxisManual;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.ReverseMotor;
-import frc.robot.commands.StopTurnMotor;
-import frc.robot.commands.TurnMotorCommand;
+//import frc.robot.commands.ReverseMotor;
+//import frc.robot.commands.StopTurnMotor;
+//import frc.robot.commands.TurnMotorCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+//import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -37,6 +38,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    driveSubsystem.setDefaultCommand(new DriveYAxisManual());
   }
 
   /**
@@ -52,12 +54,12 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
-    new JoystickButton(joystick, Constants.OperatorConstants.turnForwardButton)
-      .onTrue(new TurnMotorCommand())
-      .onFalse(new StopTurnMotor());
-    new JoystickButton(joystick, Constants.OperatorConstants.turnReverseButton)
-      .onTrue(new ReverseMotor())
-      .onFalse(new StopTurnMotor());
+    //new JoystickButton(joystick, Constants.OperatorConstants.TURNFORWARDBUTTON)
+      //.onTrue(new TurnMotorCommand())
+      //.onFalse(new StopTurnMotor());
+    //new JoystickButton(joystick, Constants.OperatorConstants.TURNREVERSEBUTTON)
+      //.onTrue(new ReverseMotor())
+      //.onFalse(new StopTurnMotor());
   }
 
   /**

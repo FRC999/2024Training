@@ -21,8 +21,8 @@ public final class Constants {
     public static final int TURNMOTOR_JOYSTICKBUTTON = 11;
     public static final int TURNMOTORREVERSE_JOYSTICKBUTTON = 12;
     public static final double MAX_SPEED = 0.5;
-    public static final int turnForwardButton = 11;
-    public static final int turnReverseButton = 12;
+    public static final int TURNFORWARDBUTTON = 11;
+    public static final int TURNREVERSEBUTTON = 12;
     public static final double STOPMOTOR_SPEED = 0.0;
   }
 }
