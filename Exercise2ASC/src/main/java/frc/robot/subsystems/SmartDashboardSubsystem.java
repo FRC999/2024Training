@@ -18,6 +18,6 @@ public class SmartDashboardSubsystem extends SubsystemBase {
   }
 
   public void updateEncoder() {
-    SmartDashboard.putNumber("Incoder Value", RobotContainer.driveSubsystem.getEncoder());
+    SmartDashboard.putNumber("Encoder Value", RobotContainer.driveSubsystem.getEncoder());
   }
 }
