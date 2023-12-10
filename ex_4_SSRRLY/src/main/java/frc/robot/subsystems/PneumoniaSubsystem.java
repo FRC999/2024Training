@@ -20,6 +20,7 @@ public class PneumoniaSubsystem extends SubsystemBase {
 
   public PneumoniaSubsystem() {
     compressor = new Compressor(Constants.OperatorConstants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM);
+    //instantiatate solenoid
     solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.OperatorConstants.F_CHANNEL,Constants.OperatorConstants.R_CHANNEL);
     runCompressor();
     //stopCompressor();
@@ -35,10 +36,12 @@ public class PneumoniaSubsystem extends SubsystemBase {
   
   public void goForward() {
     solenoid.set(Value.kReverse);
+    //extend the piston
   }
 
   public void goBackward() {
     solenoid.set(Value.kForward);
+    //retract the piston
 
   }
   public PneumaticsControlModule contractPneumonia(){
