@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class PigeonSubsystem extends SubsystemBase {
   /** Creates a new PigeonSubsystem. */
-  public WPI_TalonSRX pigeonIMUController = new WPI_TalonSRX(4);
-  private PigeonIMU bird = new PigeonIMU(pigeonIMUController);
+  public WPI_TalonSRX talonSRX = new WPI_TalonSRX(4);
+  private PigeonIMU pigeon = new PigeonIMU(talonSRX);
 
   public PigeonSubsystem() {}
 
@@ -22,14 +22,14 @@ public class PigeonSubsystem extends SubsystemBase {
   }
 
   public double getPitch() {
-    return bird.getPitch();
+    return pigeon.getPitch();
   }
 
   public double getRoll() {
-    return bird.getRoll();
+    return pigeon.getRoll();
   }
 
   public double getYaw() {
-    return bird.getYaw();
+    return pigeon.getYaw();
   }
 }
