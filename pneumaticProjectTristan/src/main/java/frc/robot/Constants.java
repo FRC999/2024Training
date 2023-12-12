@@ -23,8 +23,8 @@ public final class Constants {
   public static class PneumaticsConstants {
     public static final int compressorCANID = 0;
     public static final PneumaticsModuleType pneumaticsModuleType = PneumaticsModuleType.CTREPCM;
-    public static final int FORWARDCHANNEL = 0;
-    public static final int REVERSECHANNEL = 1;
+    public static final int FORWARDCHANNEL = 7;
+    public static final int REVERSECHANNEL = 0;
 
   }
 }
