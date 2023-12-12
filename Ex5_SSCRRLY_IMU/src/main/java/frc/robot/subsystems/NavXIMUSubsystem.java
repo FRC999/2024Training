@@ -4,11 +4,33 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class NavXIMUSubsystem extends SubsystemBase {
   /** Creates a new NavXIMUSubsystem. */
-  public NavXIMUSubsystem() {}
+  private static AHRS NavX;
+  public NavXIMUSubsystem() {
+    try {
+    NavX = new AHRS(SPI.Port.kMXP);
+    } catch (RuntimeException ex) {
+      
+    }
+  }
+
+  public double getPitch() {
+    return NavX.getPitch();
+  }
+
+  public double getRoll() {
+    return NavX.getRoll();
+  }
+
+  public double getYaw() {
+    return NavX.getYaw();
+  }
 
   @Override
   public void periodic() {
