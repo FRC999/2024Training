@@ -35,14 +35,14 @@ public class RobotContainer {
   public static final LimitSwitchSubsystem limitSwitchSubsystem = new LimitSwitchSubsystem();
   public static final SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
 
-  public final static Joystick joystick = new Joystick(OperatorConstants.kDriverControllerPort);
+  public static Joystick joystick;
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-
+    joystick = new Joystick(OperatorConstants.kDriverControllerPort);
     // Configure the trigger bindings
     configureBindings();
   }
@@ -61,12 +61,14 @@ public class RobotContainer {
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-    new Trigger(() -> limitSwitchSubsystem.getLimitSwitchValue()) // Elevator to MIDDLE if POV Left is pressed
-        .onTrue(new StopMotorCommand());
-    
+    new Trigger(() -> !limitSwitchSubsystem.getLimitSwitchValue()&&joystick.getRawButton(Constants.OperatorConstants.BUTTON_ELEVEN)) // Elevator to MIDDLE if POV Left is pressed
+        .onTrue(new TurnMotorCommand())
+        .onFalse(new StopMotorCommand());
+
+    /* 
     new JoystickButton(joystick, Constants.OperatorConstants.BUTTON_ELEVEN)
       .onTrue(new TurnMotorCommand())
-      .onFalse(new StopMotorCommand());
+      .onFalse(new StopMotorCommand()); */
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());

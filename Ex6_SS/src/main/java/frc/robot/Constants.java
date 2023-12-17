@@ -15,8 +15,8 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
-    public static final int MOTER_ID = 4;
-    public static final int LIMIT_SWITCH_PORT = 4;
+    public static final int MOTER_ID = 9;
+    public static final int LIMIT_SWITCH_PORT = 5;
     public static final int BUTTON_ELEVEN = 11;
 
     public static final double MOTOR_START_SPEED = 0.2;
