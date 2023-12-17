@@ -58,19 +58,11 @@ public class RobotContainer {
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-    motorButton.onTrue(new DriveCommand())
-    .onFalse(new StopCommand());
-
-    if (limitSwitchSubsystem.limitSwitch.get() == true) {
-      motorButton.onTrue(new DriveCommand())
+    //_fakse to true
+    new Trigger( () -> joystick.getRawButton(1) && limitSwitchSubsystem.limitSwitch.get() )
+      .onTrue(new DriveCommand())
       .onFalse(new StopCommand());
-    }
-    else if (limitSwitchSubsystem.limitSwitch.get() == false) {
-      new StopCommand();
-    }
-    else {
-      new StopCommand();
-    }
+
     
 
 
