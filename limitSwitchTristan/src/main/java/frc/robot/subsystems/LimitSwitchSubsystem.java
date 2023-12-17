@@ -8,10 +8,12 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LimitSwitchSubsystem extends SubsystemBase {
-  /** Creates a new LimitSwitchSubsystem. */
-  public LimitSwitchSubsystem() {}
+  
+  public DigitalInput limitSwitch;
 
-  public DigitalInput limitSwitch = new DigitalInput(5);
+  public LimitSwitchSubsystem() {
+    limitSwitch = new DigitalInput(5);
+  }
 
   @Override
   public void periodic() {

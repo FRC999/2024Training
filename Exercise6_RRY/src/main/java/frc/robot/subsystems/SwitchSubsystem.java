@@ -6,14 +6,25 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class SwitchSubsystem extends SubsystemBase {
-  /** Creates a new SwitchSubsystem. */
+  public static DigitalInput limitSwitch;
+  /** Creates a new LimitSwitchSubsystem. */
+  public SwitchSubsystem() {
+        //Initialize the limit switch
+        if(limitSwitch == null) {
+          try {
+            limitSwitch = new DigitalInput(Constants.OperatorConstants.SWITCH_PORT);
+          } catch (Exception e) {
+            System.out.println("No Value");
+          }
+        }
+  }
 
-  private DigitalInput shooterLimitSwitch; 
-
-
-  public SwitchSubsystem() {}
+  public boolean getSwitch() {
+    return !limitSwitch.get();
+  }
 
   @Override
   public void periodic() {
