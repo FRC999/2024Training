@@ -18,8 +18,12 @@ public class SmartDashboardSubsystem extends SubsystemBase {
   }
 
   public void updateEncoder() {
-    SmartDashboard.putNumber("Pigeon Pitch", RobotContainer.pigeonSubsystem.getPitch());
-    SmartDashboard.putNumber("Pigeon Roll", RobotContainer.pigeonSubsystem.getRoll());
-    SmartDashboard.putNumber("Pigeon Yaw", RobotContainer.pigeonSubsystem.getYaw());
+    SmartDashboard.putNumber("Dynamic Pigeon Pitch", RobotContainer.pigeonSubsystem.getPitch());
+    SmartDashboard.putNumber("Dynamic Pigeon Roll", RobotContainer.pigeonSubsystem.getRoll());
+    SmartDashboard.putNumber("Dynamic Pigeon Yaw", RobotContainer.pigeonSubsystem.getYaw());
+
+    SmartDashboard.putNumber("Dynamic NavX Pitch", RobotContainer.navXSubsystem.getPitch());
+    SmartDashboard.putNumber("Dynamic NavX Roll", RobotContainer.navXSubsystem.getRoll());
+    SmartDashboard.putNumber("Dynamic NavX Yaw", RobotContainer.navXSubsystem.getYaw());
   }
 }

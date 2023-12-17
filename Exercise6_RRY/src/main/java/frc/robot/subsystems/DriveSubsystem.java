@@ -4,26 +4,17 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveSubsystem extends SubsystemBase {
-  private static WPI_TalonFX motor;
   /** Creates a new DriveSubsystem. */
+  public final WPI_TalonFX motor;
   public DriveSubsystem() {
-    motor = new WPI_TalonFX(Constants.OperatorConstants.MOTER_ID);
-  }
+    motor = new WPI_TalonFX(Constants.OperatorConstants.MOTOR_PORT); 
 
-  public void startMotor() {
-    motor.set(ControlMode.PercentOutput, Constants.OperatorConstants.MOTOR_START_SPEED);
-  }
-
-  public void stopMotor() {
-    motor.set(ControlMode.PercentOutput, Constants.OperatorConstants.MOTOR_STOP_SPEED);
   }
 
   @Override
