@@ -8,8 +8,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.NavXSubsystem;
-import frc.robot.subsystems.PigeonSubsystem;
+import frc.robot.subsystems.LimitSwitchSubsystem;
 import frc.robot.subsystems.SmartDashboardSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -24,8 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  public static final PigeonSubsystem pigeonSubsystem = new PigeonSubsystem();
-  public static final NavXSubsystem navXSubsystem = new NavXSubsystem();
+  public static final LimitSwitchSubsystem limitSwitchSubsystem = new LimitSwitchSubsystem();
   public static final SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -51,6 +49,11 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
+
+    Trigger limitSwitchChecker = new Trigger(() -> limitSwitchSubsystem.limitSwitch.get());
+
+
+
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
