@@ -6,10 +6,22 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
+import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.StopCommand;
+import frc.robot.commands.TurnMotorCommand;
+import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.SmartDashboardSubsystem;
+import frc.robot.subsystems.SwitchSubsystem;
+
+import javax.swing.text.StyleContext.SmallAttributeSet;
+
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -21,16 +33,27 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  public static DriveSubsystem driveSubsystem = new DriveSubsystem();
+  public static SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
+  public static SwitchSubsystem switchSubsystem = new SwitchSubsystem();
+
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+      new CommandXboxController(OperatorConstants.DRIVESTICK_PORT);
+
+  public static Joystick driveStick;
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
+    driveStick = new Joystick(Constants.OperatorConstants.DRIVESTICK_PORT);
+
     configureBindings();
+    //driveSubsystem.setDefaultCommand(new DefaultDriveCommand());
   }
+  
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -45,6 +68,13 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
+
+    new JoystickButton(driveStick,Constants.OperatorConstants.BUTTON_ELEVEN)
+        .onTrue(new TurnMotorCommand())
+        .onFalse(new StopCommand());
+    new Trigger(() -> !switchSubsystem.getSwitch()&&driveStick.getRawButton(Constants.OperatorConstants.BUTTON_ELEVEN))
+        .onTrue(new TurnMotorCommand())
+        .onFalse(new StopCommand());
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
