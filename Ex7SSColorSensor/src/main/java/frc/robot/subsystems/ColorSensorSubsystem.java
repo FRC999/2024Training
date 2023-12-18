@@ -10,8 +10,10 @@ import com.revrobotics.ColorSensorV3.RawColor;
 import com.revrobotics.ColorMatchResult;
 
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 
 public class ColorSensorSubsystem extends SubsystemBase {
   public final I2C.Port i2cPort = I2C.Port.kMXP;
@@ -29,18 +31,29 @@ public class ColorSensorSubsystem extends SubsystemBase {
 
   /** Creates a new ColorSensor. */
   public ColorSensorSubsystem() {
-    if (isColorSensor) { //Checks if color sensor is connected
-      colorSensor = new ColorSensorV3(i2cPort);
-      seenColor = colorSensor.getColor();
-      if (!colorSensor.isConnected()) {  //Checks if color sensor is not connected
-        isColorSensor =  false;
-      }
+      colorMatcher.addColorMatch(kBlueTarget);
+      colorMatcher.addColorMatch(kGreenTarget);
+      colorMatcher.addColorMatch(kRedTarget);
+      colorMatcher.addColorMatch(kYellowTarget);
     }
-  }
 
-  public Color getSeenColor() {   // It will return most closely matched color as ENUM
-    // if (colorSensor.getColor() != null)
-      return seenColor;
+  public String getSeenColor(Color color) {   // It will return most closely matched color as ENUM
+    ColorMatchResult match = colorMatcher.matchClosestColor(color);
+    String colorString;
+    if (match.color == kBlueTarget) {
+      colorString = "Blue";
+    } else if (match.color == kRedTarget) {
+      colorString = "Red";
+    } else if (match.color == kGreenTarget) {
+      colorString = "Green";
+    } else if (match.color == kYellowTarget) {
+      colorString = "Yellow";
+    } else {
+      colorString = "Unknown";
+    }
+
+  return colorString;
+
   }
 
   public int getDistance() {
@@ -49,6 +62,10 @@ public class ColorSensorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    Color detectedColor = colorSensor.getColor();
     // This method will be called once per scheduler run
+
+    SmartDashboard.putString("Color: ", getSeenColor(detectedColor));
+    SmartDashboard.putNumber("Disance: ", getDistance());
   }
 }
