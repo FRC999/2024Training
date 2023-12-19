@@ -8,6 +8,9 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.NavXSubsystem;
+import frc.robot.subsystems.PigeonSubsystem;
+import frc.robot.subsystems.SmartDashboardSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -19,8 +22,11 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  public final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+
+  public static final PigeonSubsystem pigeonSubsystem = new PigeonSubsystem();
+  public static final NavXSubsystem navXSubsystem = new NavXSubsystem();
+  public static final SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
