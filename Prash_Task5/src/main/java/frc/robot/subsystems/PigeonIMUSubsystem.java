@@ -10,17 +10,28 @@ import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class PigeonSubsystem extends SubsystemBase {
+public class PigeonIMUSubsystem extends SubsystemBase {
 
   private WPI_PigeonIMU pigeon;
   private WPI_TalonSRX pigeonController; 
 
   /** Creates a new PigeonSubsystem. */
-  public PigeonSubsystem() {
+  public PigeonIMUSubsystem() {
     pigeonController = new WPI_TalonSRX(Constants.OperatorConstants.PIGEON_CONTROLLER_ID);
     pigeon = new WPI_PigeonIMU(pigeonController);
   }
 
+  public double getRoll() {
+    return pigeon.getRoll();
+  }
+
+  public double getPitch() {
+    return pigeon.getPitch();
+  }
+
+  public double getYaw() {
+    return pigeon.getYaw();
+  }
 
   @Override
   public void periodic() {
