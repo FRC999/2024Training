@@ -15,7 +15,12 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
-    public static final int PIGEON_CONTROLLER_ID = 4;
 
+    public static final int MOTOR_ID = 9;
+    public static final int JOYSTICK_PORT = 0;
+    public static final int BUTTON_RUN_NUM = 11;
+    public static final int BUTTON_REVERSE_NUM = 12;
+    public static final double SPEED_FORWARD = 0.3;
+    public static final double SPEED_STOP = 0.0;    
   }
 }
