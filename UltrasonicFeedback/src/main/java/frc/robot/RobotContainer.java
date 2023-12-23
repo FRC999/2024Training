@@ -39,7 +39,6 @@ public class RobotContainer {
   private final CommandXboxController m_driverController = new CommandXboxController(
       OperatorConstants.kDriverControllerPort);
 
-  public static Joystick joystick = new Joystick(11);
   public static Joystick turnStick = new Joystick(0);
 
   /**
@@ -69,8 +68,8 @@ public class RobotContainer {
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
 
 
-    new JoystickButton(joystick, 11)
-      .onTrue(new UltrasonicFeedbackCommand());
+    new JoystickButton(turnStick, 11)
+      .whileTrue(new UltrasonicFeedbackCommand());
   }
 
   /**

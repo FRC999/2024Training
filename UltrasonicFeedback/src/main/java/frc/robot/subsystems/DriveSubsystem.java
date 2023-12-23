@@ -30,7 +30,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public double calculateMotorInput(int sensorValue) {
-    double motorInput = (double) sensorValue / 1680.0;
+    double motorInput = ((double) sensorValue / 1680.0)*0.3;
     return motorInput;
   }
 

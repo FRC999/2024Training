@@ -14,7 +14,7 @@ public class SmartDashboardSubsystem extends SubsystemBase {
 
 
   public void updateUltrasonicValues() {
-    SmartDashboard.putString("Ultrasonic: ", Integer.toString(RobotContainer.ultrasonicSubsystem.getUltrasonicLeftDistanceInRaw()));
+    SmartDashboard.putString("###### Ultrasonic ###### : ", Integer.toString(RobotContainer.ultrasonicSubsystem.getUltrasonicLeftDistanceInRaw()));
   }
 
   public void updateAllDisplays() {
