@@ -15,12 +15,14 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
-    public static final int BUTTONELEVEN = 11;
+    public static final int JOYSTICK = 0;
     public static final int LMOTOR = 20;
     public static final int RMOTOR = 21;
-    public static final double kP=0.05;
-    public static final double kI=0.0;
-    public static final double kD=0.0;
-    public static final double UNITSPERMETER = 19.2877477;
+    public static final int BUTTON_THREE = 3;
+    public static final int BUTTON_TWO = 2;
+    public static final double ENCODER_CHANGE_PER_METER = 19.4951226;
+    public static double kP = 0.0;
+    public static double kI = 0.0;
+    public static double kD = 0.0;
   }
 }
