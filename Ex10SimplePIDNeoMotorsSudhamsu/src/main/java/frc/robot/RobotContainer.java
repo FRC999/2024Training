@@ -6,22 +6,18 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
+import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.StopCommand;
-import frc.robot.commands.DriveCommand;
-import frc.robot.commands.DriveManualCommand;
+import frc.robot.commands.RunMeterForwardHardwarePID;
+import frc.robot.commands.RunThreeMetersForward;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.SmartDashboardSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -31,25 +27,22 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveCommand driveCommand = new DriveCommand();
-  public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  public final static SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
+
+  public final static DriveSubsystem driveSubsystem = new DriveSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.JOYSTICK);
+      new CommandXboxController(OperatorConstants.JoystickPort);
 
-  public static Joystick joystick  = new Joystick(Constants.OperatorConstants.JOYSTICK);
-  public static Joystick turnStick = new Joystick(1);
-  private final Trigger motorButton = new JoystickButton(joystick, Constants.OperatorConstants.BUTTON);
+  public static Joystick joystick  = new Joystick(Constants.OperatorConstants.JoystickPort);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
-    driveSubsystem.setDefaultCommand(new DriveManualCommand());
+    //driveSubsystem.setDefaultCommand(new DriveManuallyCommand());
   }
-  
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -62,16 +55,19 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-  // new Trigger(m_exampleSubsystem::exampleCondition)
-   // .onTrue(new ExampleCommand(m_exampleSubsystem));
-  
-  new JoystickButton(joystick, Constants.OperatorConstants.BUTTON)
-    .onTrue(new DriveCommand());
+    new Trigger(m_exampleSubsystem::exampleCondition)
+        .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-  new JoystickButton(joystick, Constants.OperatorConstants.BUTTON)
-    .onFalse(new StopCommand());
+    new JoystickButton(joystick, Constants.OperatorConstants.BUTTON_THREE)
+      .onTrue(new RunThreeMetersForward())
+      .onFalse(new InstantCommand( () -> driveSubsystem.manualDrive(0, 0)));
 
-    
+    new JoystickButton(joystick, Constants.OperatorConstants.BUTTON_TWO)
+      .onTrue(new RunMeterForwardHardwarePID(()->driveSubsystem.getLeftEncoderRaw(),()->driveSubsystem.getRightEncoderRaw()))
+      .onFalse(new InstantCommand( () -> driveSubsystem.manualDrive(0, 0)));
+
+    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
+    // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
 
