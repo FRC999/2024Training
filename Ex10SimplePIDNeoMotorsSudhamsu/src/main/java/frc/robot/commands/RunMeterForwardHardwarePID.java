@@ -13,9 +13,12 @@ import frc.robot.RobotContainer;
 public class RunMeterForwardHardwarePID extends CommandBase {
   private DoubleSupplier leftEncoder;
   private DoubleSupplier rightEncoder;
+  
 
-  private double initialLeft;
-  private double initialRight;
+  public static double initialLeft;
+  public static double initialRight;
+  public double error;
+  public double tolerance = Constants.OperatorConstants.ENCODER_CHANGE_PER_METER*0.03;
   /** Creates a new RunMeterForwardHardwarePID. */
   public RunMeterForwardHardwarePID() {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -48,11 +51,19 @@ public class RunMeterForwardHardwarePID extends CommandBase {
   public void end(boolean interrupted) {
     RobotContainer.driveSubsystem.endPIDLeft();
     RobotContainer.driveSubsystem.endPIDRight();
+    System.out.println("Command ended: " + interrupted);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    error  = Math.abs((initialRight + Constants.OperatorConstants.ENCODER_CHANGE_PER_METER) - RobotContainer.driveSubsystem.getRightEncoder());
+
+    if(error <= tolerance) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 }
