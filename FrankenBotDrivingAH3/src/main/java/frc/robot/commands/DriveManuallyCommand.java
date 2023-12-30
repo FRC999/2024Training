@@ -25,6 +25,7 @@ public class DriveManuallyCommand extends CommandBase {
   public void execute() {
     double move = RobotContainer.driveStick.getX();
     double turn = RobotContainer.driveStick.getY()*(-1);
+    RobotContainer.driveSubsystem.manualDrive(move, turn);
   }
 
   // Called once the command ends or is interrupted.

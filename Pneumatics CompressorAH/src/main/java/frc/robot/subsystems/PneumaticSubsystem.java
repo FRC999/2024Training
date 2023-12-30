@@ -4,11 +4,14 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class NavXSubsystem extends SubsystemBase {
-  /** Creates a new NavXSubsystem. */
-  public NavXSubsystem() {}
+public class PneumaticSubsystem extends SubsystemBase {
+  /** Creates a new PneumaticSubsystem. */
+  public PneumaticSubsystem() {
+    compressor = new Compressor(PneumaticsConstants.compressorCANID, PneumaticsModuleType.CTREPCM);
+  }
 
   @Override
   public void periodic() {
