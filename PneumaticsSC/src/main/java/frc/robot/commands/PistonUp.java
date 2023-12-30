@@ -6,27 +6,23 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-//import frc.robot.subsystems.DriveSubsystem;
 
-public class DriveManuallyCommand extends CommandBase {
-  /** Creates a new DriveManuallyCommand. */
-  public DriveManuallyCommand() {
-    addRequirements(RobotContainer.driveSubsystem);
+public class PistonUp extends CommandBase {
+  /** Creates a new PistonUp. */
+  public PistonUp() {
+    addRequirements(RobotContainer.pneumaticSubsystem);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    RobotContainer.driveSubsystem.driveTrainBrakeMode();
+    RobotContainer.pneumaticSubsystem.goForward();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    double move = RobotContainer.driveStick.getX();
-    double turn = RobotContainer.driveStick.getY()*(-1);
-    RobotContainer.driveSubsystem.manualDrive(move, turn);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override

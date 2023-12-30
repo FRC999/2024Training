@@ -7,14 +7,11 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.StopMotor;
-import frc.robot.commands.TurnMotor;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.commands.PistonDown;
+import frc.robot.commands.PistonUp;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.SmartDashboardSubsystem;
-import frc.robot.subsystems.SwitchSubsystem;
+import frc.robot.subsystems.PneumaticSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -29,21 +26,20 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  public static SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
-  public static SwitchSubsystem switchSubsystem = new SwitchSubsystem();
-  public static DriveSubsystem driveSubsystem = new DriveSubsystem();
+
+  public static final PneumaticSubsystem pneumaticSubsystem = new PneumaticSubsystem();
+
+  public static Joystick joystick = new Joystick(Constants.OperatorConstants.JOYSTICK);
+
+  public final JoystickButton button = new JoystickButton(joystick, Constants.OperatorConstants.BUTTON);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
-     public static Joystick driveStick;
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    driveStick = new Joystick(Constants.OperatorConstants.kDriverControllerPort);
-    
-
+    // Configure the trigger bindings
     configureBindings();
   }
 
@@ -61,13 +57,9 @@ public class RobotContainer {
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-    // new JoystickButton(driveStick,Constants.OperatorConstants.JOYSTICK_BUTTON)
-    //   .onTrue(new TurnMotor())
-    //   .onFalse(new StopMotor());
-    new Trigger(() -> !switchSubsystem.getSwitch()&&driveStick.getRawButton(Constants.OperatorConstants.JOYSTICK_BUTTON))
-      .onTrue(new TurnMotor())
-      .onFalse(new StopMotor());
-
+    button
+        .onTrue(new PistonUp())
+        .onFalse(new PistonDown());
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());

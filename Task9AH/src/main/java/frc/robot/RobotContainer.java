@@ -7,17 +7,11 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.StopMotor;
-import frc.robot.commands.TurnMotor;
-import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.SmartDashboardSubsystem;
-import frc.robot.subsystems.SwitchSubsystem;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.NetworkTableSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -29,21 +23,15 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  public static SmartDashboardSubsystem smartDashboardSubsystem = new SmartDashboardSubsystem();
-  public static SwitchSubsystem switchSubsystem = new SwitchSubsystem();
-  public static DriveSubsystem driveSubsystem = new DriveSubsystem();
+  private final NetworkTableSubsystem networkTableSubsystem = new NetworkTableSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
-     public static Joystick driveStick;
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    driveStick = new Joystick(Constants.OperatorConstants.kDriverControllerPort);
-    
-
+    // Configure the trigger bindings
     configureBindings();
   }
 
@@ -61,13 +49,8 @@ public class RobotContainer {
     new Trigger(m_exampleSubsystem::exampleCondition)
         .onTrue(new ExampleCommand(m_exampleSubsystem));
 
-    // new JoystickButton(driveStick,Constants.OperatorConstants.JOYSTICK_BUTTON)
-    //   .onTrue(new TurnMotor())
-    //   .onFalse(new StopMotor());
-    new Trigger(() -> !switchSubsystem.getSwitch()&&driveStick.getRawButton(Constants.OperatorConstants.JOYSTICK_BUTTON))
-      .onTrue(new TurnMotor())
-      .onFalse(new StopMotor());
-
+        new Trigger(() -> networkTableSubsystem.targetSeen())
+        .onTrue(new PrintCommand("AprilTag has been located"));
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
