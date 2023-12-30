@@ -4,54 +4,53 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
-import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-
 public class DriveSubsystem extends SubsystemBase {
+  /** Creates a new DriveSubsystem. */
+  //_initializes and defines motors
+  private CANSparkMax rightMotor = new CANSparkMax(Constants.OperatorConstants.RMOTOR, MotorType.kBrushless);
+  private CANSparkMax leftMotor = new CANSparkMax(Constants.OperatorConstants.LMOTOR, MotorType.kBrushless);
 
-  public DriveSubsystem() {}
-  WPI_TalonSRX motor = new WPI_TalonSRX(Constants.OperatorConstants.MOTOR_ID);
-  WPI_TalonSRX encMotor = new WPI_TalonSRX(Constants.OperatorConstants.ENCMOTOR);
-
-  public void setSpeed(double motorSpeed) {
-    encMotor.set(motorSpeed);
-  }
-
-  public int getEncoder() {
-    int e = (int) encMotor.getSelectedSensorPosition();
-    System.out.println("e:"+e);
-    return e;
-  }
-
-  public void configureEncoders() {
-    encMotor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Relative, 0, 30);
-  }
-
- 
+  //_initializes differential drive
+  private DifferentialDrive drive;
   
+  public DriveSubsystem() {
+
+    //_init driveTrainBrakeMode
+    driveTrainBrakeMode();
+
+    //_def DifferentialDrive between left and right motor
+    drive = new DifferentialDrive(leftMotor, rightMotor);
+    
+  }
+
+  public void driveTrainBrakeMode() {
+    //_this will make the robot brake when no command is given. !!very important!!
+    rightMotor.setIdleMode(IdleMode.kBrake);
+    leftMotor.setIdleMode(IdleMode.kBrake);
+  }
+
+  public void manualDrive(double move, double turn) {
+
+    drive.arcadeDrive(move, turn);
+
+  }
+
+  public void configureMotors() {
+    rightMotor.setInverted(false);
+    //_left motor is invertued due to its position on the frankenBot
+    leftMotor.setInverted(true);
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-  }
-  public void backward() {
-    motor.set(ControlMode.PercentOutput, Constants.OperatorConstants.BACKWARDSPEED);
-  }
-  public void runMotor() {
-    motor.set(ControlMode.PercentOutput, Constants.OperatorConstants.SPEED);
-  }
-
-  public void stopMotor() {
-    motor.set(ControlMode.PercentOutput, Constants.OperatorConstants.STOP_SPEED);
-  }
-
-  public void joystickDrive(double move) {
-    motor.set(ControlMode.PercentOutput, move);
   }
 }

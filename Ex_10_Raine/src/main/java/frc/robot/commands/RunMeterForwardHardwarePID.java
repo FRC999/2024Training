@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -37,6 +38,8 @@ public class RunMeterForwardHardwarePID extends CommandBase {
   public void initialize() {
     initialLeft = leftEncoder.getAsDouble();
     initialRight = rightEncoder.getAsDouble();
+
+    PIDController pid = new PIDController(kD,kI,kP);
 
     RobotContainer.driveSubsystem.runMotorPIDLeft(initialLeft - Constants.OperatorConstants.ENCODER_CHANGE_PER_METER);
     RobotContainer.driveSubsystem.runMotorPIDRight(initialRight + Constants.OperatorConstants.ENCODER_CHANGE_PER_METER);
